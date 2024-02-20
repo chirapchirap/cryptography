@@ -1,5 +1,5 @@
 # F(x) = 1 + x^2 + x^4 + x^8
-i1, i2, i3 = -1, -3, -5
+i1, i2, i3 = -2, -4, -8
 
 def wrap_bits_seq_by_8(bits):  
     x=8
@@ -21,6 +21,7 @@ def lfsr(st):
     zero_count = 0
     one_count = 0
     sequence = list()
+    a = 0
     while(True):
         x1.insert(0, x1[i1]^x1[i2]^x1[i3])
         popped_bit = x1.pop()
@@ -30,7 +31,7 @@ def lfsr(st):
         else:
             zero_count += 1
         if x1 == st:
-            return [sequence, len(sequence), odd_and_even_count(sequence), [zero_count, one_count]]
+            return [sequence, len(sequence), odd_and_even_count(sequence), [zero_count, one_count]]   
 
 start_value = 0b10010011
 result = lfsr(list(map(int, (bin(start_value)[2:]))))
