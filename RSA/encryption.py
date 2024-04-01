@@ -3,53 +3,34 @@ encoding = [['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '
 
 def check_block(b):
     tmp = b[len(b)-1:len(b)]
-    while int(tmp) == 0:
-        b = b[:len(b)-1]
-        tmp = b[len(b)-1:len(b)]
+    if int(tmp) == 0:
+        while int(tmp) == 0:
+            b = b[:len(b)-1]
+            tmp = b[len(b)-1:len(b)]
+        return b[:len(b)-1]
     else:
-        return b
-    # tmp = b[len(b)-1:len(b)]
-    # b = b[:len(b)-1]
-    # if int(tmp) == 0:
-    #     if int(b[len(b)-1:len(b)]) == 0:
-    #         b = b[:len(b)-2]
-    #     else:
-    #         b = b[:len(b)-1]
-        
-    # else:
-        
+        return b[:len(b)-1]
 
-    # while True:
-    #     if int(b[-1]) == 0 and int(b[-2]) == 0:
-    #         b = b[:len(b)-3]
-    #     elif int(b[-1]) == 0 and int(b[-2]) != 0:
-    #         b = b[:len(b)-2]
-    #     elif len(b) > m_l:
-    #         b = b[:m_l]
-    #         return b
-    #     else:
-    #         return b
 
 def get_blocks(data, n):
-    mod_length = len(str(n))
+    mod_len = len(str(n))
     blocks = list()
     while True: 
         if len(data) == 0: 
             return blocks
-        elif len(data) <= mod_length:
-            block_slice = data[:len(data)]
+        elif len(data) <= mod_len:
+            b_slice = data[:len(data)]
         else:
-            block_slice = data[:mod_length+1]
-            block_slice = check_block(block_slice)
-        if int(block_slice) > n:
-            length = len(block_slice)-mod_length
-            block_slice = block_slice[:len(block_slice)-length]
-            checked_block = check_block(block_slice)
-            blocks.append(checked_block)
-            data = data.replace(data[:len(block_slice)], "", 1)
+            b_slice = data[:mod_len+1]
+            checked_b_slice = check_block(b_slice)  
+        if int(checked_b_slice) > n:
+            b_slice = b_slice[:mod_len]
+            checked_b_slice = check_block(b_slice)
+            blocks.append(checked_b_slice)
+            data = data.replace(data[:len(b_slice)], "", 1)
         else:
-            blocks.append(block_slice)
-            data = data.replace(data[:len(block_slice)], "", 1)    
+            blocks.append(checked_b_slice)
+            data = data.replace(data[:len(b_slice)], "", 1)    
 
 
 if __name__ == "__main__":
