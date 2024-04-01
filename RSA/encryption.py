@@ -27,10 +27,10 @@ def get_blocks(data, n):
             b_slice = b_slice[:mod_len]
             checked_b_slice = check_block(b_slice)
             blocks.append(checked_b_slice)
-            data = data.replace(data[:len(b_slice)], "", 1)
+            data = data.replace(data[:len(checked_b_slice)], "", 1)
         else:
             blocks.append(checked_b_slice)
-            data = data.replace(data[:len(b_slice)], "", 1)    
+            data = data.replace(data[:len(checked_b_slice)], "", 1)    
 
 
 if __name__ == "__main__":
@@ -40,10 +40,12 @@ if __name__ == "__main__":
     msg_upper = msg.upper()
 
     num_msg = ''.join((encoding[0][encoding[1].index(let)] for let in msg_upper))
-    print("Plaintext:", msg_upper)
-    print("Plaintext in encoding:", num_msg)
+    print("Plaintext:", msg_upper, end='\n\n')
+    print("Plaintext in encoding:", num_msg, end='\n\n')
     blocks = get_blocks(num_msg, enc_key[1])
-    print("Plaintext' blocks:", blocks)
-    enc_msg = ''.join(map(lambda x: str(pow(int(x),enc_key[0], enc_key[1])), blocks))
-    print("Ciphertext:", enc_msg)
+    print("Plaintext' blocks:", blocks, end='\n\n')
+    enc_msg = list(map(lambda x: str(pow(int(x),enc_key[0], enc_key[1])), blocks))
+    print("Ciphertext:", ''.join(enc_msg), end='\n\n')
+    print("Ciphertext in blocks:", enc_msg)
+    
 
