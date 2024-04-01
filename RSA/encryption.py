@@ -19,7 +19,7 @@ def get_blocks(data, n):
         if len(data) == 0: 
             return blocks
         elif len(data) <= mod_len:
-            b_slice = data[:len(data)]
+            checked_b_slice = data[:len(data)]
         else:
             b_slice = data[:mod_len+1]
             checked_b_slice = check_block(b_slice)  
@@ -34,9 +34,9 @@ def get_blocks(data, n):
 
 
 if __name__ == "__main__":
-    enc_key = []
+    enc_key = [25223, 33401]
 
-    msg = ''
+    msg = 'я хочу чтобы моя программа нормально отработала'
     msg_upper = msg.upper()
 
     num_msg = ''.join((encoding[0][encoding[1].index(let)] for let in msg_upper))
