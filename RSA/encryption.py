@@ -24,8 +24,7 @@ def get_blocks(data, n):
             b_slice = data[:mod_len+1]
             checked_b_slice = check_block(b_slice)  
         if int(checked_b_slice) > n:
-            b_slice = b_slice[:mod_len]
-            checked_b_slice = check_block(b_slice)
+            checked_b_slice = check_block(checked_b_slice)
             blocks.append(checked_b_slice)
             data = data.replace(data[:len(checked_b_slice)], "", 1)
         else:
@@ -33,8 +32,8 @@ def get_blocks(data, n):
             data = data.replace(data[:len(checked_b_slice)], "", 1)    
 
 
-if __name__ == "__main__":
-    enc_key = [25223, 33401]
+if __name__ == "__main__":  
+    enc_key = [31765, 33401]
 
     msg = 'я хочу чтобы моя программа нормально отработала'
     msg_upper = msg.upper()
@@ -47,5 +46,7 @@ if __name__ == "__main__":
     enc_msg = list(map(lambda x: str(pow(int(x),enc_key[0], enc_key[1])), blocks))
     print("Ciphertext:", ''.join(enc_msg), end='\n\n')
     print("Ciphertext in blocks:", enc_msg)
+
+
     
 
