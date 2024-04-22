@@ -18,8 +18,12 @@ def crc(data, gx):
     while True:
         remainder = str(int(xor(num, gx)))
         if remainder == '0':
+            if len(data) <= gx_len and int(data) == 0:
+                return remainder
             num = data[:gx_len]
             data = data.replace(data[:gx_len], "", 1)
+            if len(num) < gx_len:
+                return num
         else:
             remainder_len = gx_len - len(remainder)
             num = remainder + data[:remainder_len]
@@ -41,8 +45,7 @@ def detect_crc_collision(iter, gx):
 
 
 if __name__ == '__main__':
-    input_data = 0b00100101
+    input_data = 0b01001011
     generating_polynomial = 0b100100
     print(crc(bin(input_data)[2:], bin(generating_polynomial)[2:]))
-    print(pprint(detect_crc_collision(37, bin(generating_polynomial)[2:])))
-
+    print(pprint(detect_crc_collision(256, bin(generating_polynomial)[2:])))
