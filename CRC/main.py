@@ -1,6 +1,4 @@
-# 1+ x^2 + x^5
-# 100100
-from pprint import pprint
+import collections
 
 
 def xor(a, b):
@@ -44,8 +42,18 @@ def detect_crc_collision(iter, gx):
     return res
 
 
+def dict_output(dictionary):
+    dictionary = collections.OrderedDict(sorted(dictionary.items()))
+    for key in dictionary.keys():
+        items = dictionary[key]
+        print(f"{key}: {items}")
+    return
+
+
 if __name__ == '__main__':
-    input_data = 0b01001011
-    generating_polynomial = 0b100100
-    print(crc(bin(input_data)[2:], bin(generating_polynomial)[2:]))
-    print(pprint(detect_crc_collision(256, bin(generating_polynomial)[2:])))
+    # Fuse_150, Zlobny_kot, сюда вставляете ваше значение
+    generating_polynomial = 0b000000000
+    input_data = 0b00000000  # и сюда тоже
+    print(f'CRC({bin(input_data)[2:]}) =', crc(
+        bin(input_data)[2:], bin(generating_polynomial)[2:]))
+    dict_output(detect_crc_collision(256, bin(generating_polynomial)[2:]))
