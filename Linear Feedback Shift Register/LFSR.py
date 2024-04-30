@@ -66,6 +66,7 @@ def get_polynom_degrees(poly):
     polynom degrees parser for polynoms represented as 1 + x^... + x^... 
     (... contains degrees numbers)
     '''
+    poly = poly.replace(' ', '')
     degrees = []
     i = 0
     while True:
