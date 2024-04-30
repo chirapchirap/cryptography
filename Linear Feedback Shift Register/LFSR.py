@@ -40,18 +40,20 @@ def count_odd_and_even(list_of_bits):
 
 def get_lfsr(st, char_poly_bits):
     x1 = st.copy()
-    bits_for_xor = list(bit for index, bit in enumerate(x1)
+    bits_for_xor = list(bit for index, bit in enumerate(reversed(x1))
                         if index in char_poly_bits)
     zero_count = 0
     one_count = 0
     sequence = list()
+    i = 0
+    print(f"{i}. {x1} -> -")
     while (True):
-        print(x1, end='')
         x1.insert(0, realize_xor(bits_for_xor))
         popped_bit = x1.pop()
-        print(f" -> {popped_bit}")
+        i += 1
+        print(f"{i}. {x1} -> {popped_bit}")
         sequence.append(popped_bit)
-        bits_for_xor = list(bit for index, bit in enumerate(x1)
+        bits_for_xor = list(bit for index, bit in enumerate(reversed(x1))
                             if index in char_poly_bits)
         if popped_bit == 1:
             one_count += 1
@@ -84,10 +86,10 @@ def get_bits_for_xor_in_lfsr(register_len, degrees):
     return list(register_len - degree for degree in degrees)
 
 
-start_value = 0b1101
+start_value = '1101'
 polynom_string = '1 + x^3 + x^4'
-result = get_lfsr(list(map(int, (bin(start_value)[2:]))), get_bits_for_xor_in_lfsr(
-    len(bin(start_value)[2:]), get_polynom_degrees(polynom_string)))
+result = get_lfsr(list(map(int, start_value)), get_bits_for_xor_in_lfsr(
+    len(start_value), get_polynom_degrees(polynom_string)))
 print("1.Последовательность =", result[0])
 print("2.Количество битов в одном периоде =", result[1])
 print("3.Количество нечетных, четных чисел =", result[2])
